@@ -41,6 +41,7 @@ probe() { # probe <name> <curl args...>  -> headers + body of a request, for the
 
 echo "== catalog sources from $BASE"
 fetch "$OUT/openapi.json" "/openapi.json"
+fetch "$OUT/widgets.json" "/widgets.json"
 fetch "$OUT/command_model.json" "/api/v1/coverage/command_model"
 fetch "$OUT/providers.json" "/api/v1/coverage/providers"
 fetch "$OUT/commands.json" "/api/v1/coverage/commands"
