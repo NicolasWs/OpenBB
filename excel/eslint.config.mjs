@@ -3,7 +3,7 @@ import tseslint from "typescript-eslint";
 
 export default [
   {
-    ignores: ["dist/", "node_modules/", "public/", "src/generated/", "*.js", "*.cjs", "*.mjs", "*.d.ts"],
+    ignores: ["dist/", "node_modules/", "public/", "src/generated/", "**/*.js", "**/*.cjs", "**/*.mjs", "**/*.d.ts"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
