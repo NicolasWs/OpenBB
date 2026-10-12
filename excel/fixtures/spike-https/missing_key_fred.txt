@@ -1,0 +1,8 @@
+HTTP/2 400 
+content-type: application/json
+date: Mon, 12 Oct 2026 19:53:50 GMT
+server: uvicorn
+vary: Origin
+content-length: 222
+
+{"detail":"Missing credential 'fred_api_key'. Check https://fred.stlouisfed.org to get it. Refer to the documentation for setting provider credentials at https://docs.openbb.co/odp/python/settings/user_settings/api_keys."}

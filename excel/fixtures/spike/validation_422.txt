@@ -1,0 +1,8 @@
+HTTP/1.1 422 Unprocessable Entity
+date: Mon, 12 Oct 2026 19:53:42 GMT
+server: uvicorn
+content-length: 92
+content-type: application/json
+vary: Origin
+
+{"detail":[{"type":"missing","loc":["query","symbol"],"msg":"Field required","input":null}]}

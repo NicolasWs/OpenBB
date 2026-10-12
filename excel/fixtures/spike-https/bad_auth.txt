@@ -1,0 +1,9 @@
+HTTP/2 200 
+access-control-allow-origin: *
+content-type: application/json
+date: Mon, 12 Oct 2026 19:53:50 GMT
+server: uvicorn
+vary: Origin
+content-length: 1225
+
+{"id":"06acd3ac-f5bb-700e-8000-214df70d8c41","results":[{"symbol":"AAPL","asset_type":"Common Stock","name":"Apple Inc. Common Stock","exchange":"NASDAQ-GS","bid":340.28,"bid_size":70,"ask":340.32,"ask_size":86,"last_price":340.3,"last_timestamp":"2026-10-12T00:00:00","high":342.63,"low":337.6,"volume":18258362.293869,"prev_close":336.64,"change":3.66,"change_percent":0.0109,"year_high":345.34,"year_low":243.42,"sector":"Technology","industry":"Computer Manufacturing","market_cap":4965671204418.0,"average_volume":43013644.0,"price_target":335.0,"annualized_dividend":1.08,"dividend_yield":0.0032,"ex_dividend_date":"2026-08-10","dividend_payment_date":"2026-08-13","is_nasdaq_100":true,"market_status":"Open"}],"provider":"nasdaq","warnings":[{"category":"UnknownTimezoneWarning","message":"tzname ET identified but not understood.  Pass `tzinfos` argument in order to correctly return a timezone-aware datetime.  In a future version, this will raise an exception."}],"chart":null,"extra":{"metadata":{"arguments":{"provider_choices":{"provider":"nasdaq"},"standard_params":{"symbol":"AAPL"},"extra_params":{"use_cache":true}},"duration":5320336,"route":"/equity/price/quote","timestamp":"2026-10-12T19:53:51.352925"}}}
