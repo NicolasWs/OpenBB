@@ -1,0 +1,44 @@
+{
+  "name": "openbb-excel-addin",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Excel add-in (Office.js) that pulls OpenBB data from a self-hosted openbb-api into worksheets.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run catalog && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src scripts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "catalog": "tsx scripts/generate-catalog.ts --openapi fixtures/openapi.json",
+    "catalog:server": "tsx scripts/generate-catalog.ts --server",
+    "matrix": "tsx scripts/coverage-matrix.ts --openapi fixtures/openapi.json",
+    "validate": "office-addin-manifest validate manifest.xml",
+    "certs": "office-addin-dev-certs install",
+    "start:mac": "node scripts/sideload-mac.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/custom-functions-runtime": "^1.6.13",
+    "@types/node": "^22.20.5",
+    "@types/office-js": "^1.0.611",
+    "@types/office-runtime": "^1.0.40",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "eslint": "^10.12.0",
+    "jsdom": "^26.1.0",
+    "office-addin-dev-certs": "^3.0.1",
+    "office-addin-manifest": "^3.0.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.2",
+    "vite": "^7.3.7",
+    "vitest": "^5.0.4"
+  }
+}
