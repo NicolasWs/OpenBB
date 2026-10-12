@@ -18,7 +18,38 @@ Server: nicogeek `openbb-api` (openbb-core 2.0.1, openbb-platform-api 2.0.1), re
 | 8 | `/api/v1/coverage/command_model` | **422 "Circular reference detected"**: server bug (the JSON fallback serializer in `core/openbb_core/api/router/coverage.py` returns unserializable objects unchanged) | The per-provider field catalog is unavailable | The catalog uses `openapi.json` (1,088 paths: 974 GET, 114 POST) + `widgets.json` (971 widgets) instead. Bug fix suggested as a separate task |
 | 9 | Nasdaq historical prices (equity, multi-symbol, ETF) | **204** for every request; cboe historical works; nasdaq quote/profile/info/holdings/search work | Some provider and endpoint pairs return nothing on this server | Track in the coverage matrix; recheck without dates and with other symbols |
 
-## Excel-side results (manual, Excel for Mac + official add-in)
+## Excel-side results (Excel for Mac + official add-in)
 
-See `spike-official-addin.md`, which has the 13-case matrix and the request-path test.
-Results pending.
+| Check | Result |
+|---|---|
+| Install the official add-in from the Office store | Works: the OpenBB ribbon tab and task pane load in Excel for Mac (Microsoft 365) |
+| Sign in to the add-in with the OpenBB account | **Fails**: "Something went wrong" |
+| Register nicogeek as a Workspace custom backend | **Blocked**: pro.openbb.co is unavailable to the owner |
+
+The official add-in reaches data only through a signed-in Workspace account and the
+backends registered there. With both blocked, the 13-case matrix in
+`spike-official-addin.md` could not run. The owner chose to build our own add-in
+(see ADR 0001) and to ask OpenBB support about Workspace access in parallel.
+
+## Blockers and fixes for our own add-in
+
+| Blocker | Fix | Status |
+|---|---|---|
+| Excel needs HTTPS with a trusted certificate (Excel for Mac blocks plain HTTP) | `tailscale serve` on nicogeek: real certificate, tailnet only | Done |
+| Browser cross-origin calls from the add-in | Default `api_settings.cors` allows any origin with `Authorization` | Verified (probe) |
+| Chromium Private Network Access preflight rejected | Add `allow_private_network` to the CORS settings (core change) or a middleware hook | Not needed for Excel for Mac; required before supporting Excel on the web or Windows |
+| No auth on the server | `OPENBB_API_AUTH` + username/password in the CasaOS app settings; the add-in sends Basic auth | Optional on the tailnet; required for any public exposure |
+| `/coverage/command_model` returns 422 | Build the catalog from `openapi.json` instead | Worked around; core fix suggested separately |
+| Empty results come back as a bodiless 204 | Client maps 204 to `#N/A` "No data" | Handled in the runtime (NIC-75) |
+
+## Still to verify in Excel for Mac (with our add-in)
+
+These steps need real Excel and the owner's machine:
+
+- sideload `manifest.xml`;
+- open the task pane;
+- set the server to `https://nicogeek.tailaaacd4.ts.net` and test the connection;
+- `=OBB.EQUITY.PRICE.HISTORICAL("AAPL",,,"cboe")` spills a table;
+- `=OBB.QUERY("index/price/historical","symbol=SPX","cboe")` spills a table;
+- a bad symbol shows `#N/A` with "No data";
+- a FRED call without a key shows `#VALUE!` with the missing-credential message.
