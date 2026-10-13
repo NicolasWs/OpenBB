@@ -294,7 +294,7 @@ Existing contracts (do not change their shapes without updating every user):
 - **Contract tests:** run catalog → handler → client (fake fetch serving `fixtures/responses/*.json`) → mapper for:
   - equity: price historical (cboe), quote (nasdaq, cboe), profile (nasdaq, tmx), search;
   - ETF: historical, info (nasdaq, tmx), holdings, search;
-  - index: price historical (cboe), constituents, snapshots, search;
+  - index: price historical (cboe), constituents, snapshots, search. The recorded `index_constituents_cboe.json` is an error (SPX is not a Cboe constituents symbol); re-record it with `symbol=BUK100P`;
   - error cases: 204, 422, missing key.
 
   Assert the header rows and row counts against the fixture data.
@@ -329,7 +329,7 @@ Existing contracts (do not change their shapes without updating every user):
    - `=OBB.EQUITY.PROFILE("RY","tmx")` spills one row;
    - a bad symbol gives `#N/A` "No data";
    - `=OBB.QUERY("economy/fred_series","symbol=GDP")` gives `#VALUE!` "Missing credential…".
-5. In Browse, search "constituents", preview SPX via cboe, then insert it as a static table.
+5. In Browse, search "constituents", preview BUK100P via cboe (Cboe constituents only cover European indices), then insert it as a static table.
 6. Record the results in `docs/spike-findings.md`. Then sign off ADR 0001 by changing its status to Accepted.
 
 ## 3. Dependency graph

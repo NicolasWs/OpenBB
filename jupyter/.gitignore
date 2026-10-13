@@ -1,0 +1,5 @@
+.env
+notebooks/.ipynb_checkpoints/
+notebooks/__pycache__/
+notebooks/*.xlsx
+notebooks/*.csv

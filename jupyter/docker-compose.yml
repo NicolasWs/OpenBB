@@ -1,0 +1,25 @@
+# JupyterLab next to the openbb-api container on nicogeek.
+#
+#   cd ~/OpenBB/jupyter
+#   echo "JUPYTER_TOKEN=$(openssl rand -hex 16)" > .env   # once; keep it secret
+#   docker compose up -d
+#   sudo tailscale serve --bg --https=8443 http://127.0.0.1:8888
+#   open https://nicogeek.<tailnet>.ts.net:8443/lab?token=<JUPYTER_TOKEN>
+services:
+  jupyter:
+    image: quay.io/jupyter/scipy-notebook:latest
+    container_name: openbb-jupyter
+    restart: unless-stopped
+    ports:
+      # Only on the host's loopback; reach it through `tailscale serve` (HTTPS, tailnet only).
+      - "127.0.0.1:8888:8888"
+    environment:
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN:?Create jupyter/.env with JUPYTER_TOKEN=<random string>}
+      # The openbb-api container publishes port 6900 on the host.
+      OBB_URL: http://host.docker.internal:6900
+      # Lets notebooks `import obb` (notebooks/obb.py).
+      PYTHONPATH: /home/jovyan/work
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./notebooks:/home/jovyan/work

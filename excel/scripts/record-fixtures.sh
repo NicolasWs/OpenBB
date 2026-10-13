@@ -62,7 +62,7 @@ fetch "$R/etf_info_tmx.json" "/api/v1/etf/info?symbol=XIU&provider=tmx"
 fetch "$R/etf_holdings_nasdaq.json" "/api/v1/etf/holdings?symbol=SPY&provider=nasdaq"
 fetch "$R/etf_search_nasdaq.json" "/api/v1/etf/search?query=s%26p&provider=nasdaq"
 fetch "$R/index_price_historical_cboe.json" "/api/v1/index/price/historical?symbol=SPX&start_date=2026-08-03&end_date=2026-08-28&provider=cboe"
-fetch "$R/index_constituents_cboe.json" "/api/v1/index/constituents?symbol=SPX&provider=cboe"
+fetch "$R/index_constituents_cboe.json" "/api/v1/index/constituents?symbol=BUK100P&provider=cboe"
 fetch "$R/index_snapshots_cboe.json" "/api/v1/index/snapshots?provider=cboe"
 fetch "$R/index_search_cboe.json" "/api/v1/index/search?query=nasdaq&provider=cboe"
 
